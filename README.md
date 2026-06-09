@@ -211,6 +211,3 @@ Add shell screenshots here after capturing examples of prompt rendering, job con
 - Improve built-in behavior inside pipelines where appropriate
 - Add automated tests for parser, job control, and history behavior
 
-## License
-
-No license file is present in this repository. Add one before distributing the project publicly.
