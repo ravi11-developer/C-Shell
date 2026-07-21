@@ -10,35 +10,32 @@
 bool l = false;
 bool a = false;
 
-// Comparator for qsort
 int cmpfunc(const void* a, const void* b) {
     return strcmp(*(const char**)a, *(const char**)b);
 }
 
 void print_dir(DIR* dir, bool show_all, bool newline) {
     struct dirent* entry;
-    char* files[1024];  // Max 1024 files (you can malloc dynamically if needed)
+    char* files[1024];
     int count = 0;
 
     while ((entry = readdir(dir)) != NULL) {
         if (!show_all && entry->d_name[0] == '.') {
-            continue;  // skip hidden files if `-a` not set
+            continue;
         }
-        files[count] = strdup(entry->d_name); // copy filename
+        files[count] = strdup(entry->d_name);
         count++;
     }
 
-    // Sort filenames
     qsort(files, count, sizeof(char*), cmpfunc);
 
-    // Print filenames
     for (int i = 0; i < count; i++) {
         if (newline)
             printf("%s\n", files[i]);
         else
             printf("%s ", files[i]);
 
-        free(files[i]); // free strdup
+        free(files[i]);
     }
     if (!newline) printf("\n");
 }
@@ -69,30 +66,25 @@ void tocall(char* var) {
 void reveal(Command* cmd) {
     a = false;
     l = false;
-    // Parse flags and at most one path argument
     char* path_arg = NULL;
     for (int i = 1; cmd->args[i] != NULL; i++) {
         char* tok = cmd->args[i];
         if (tok[0] == '-' && tok[1] != '\0') {
-            // flags may be combined like -la or -al
             for (int j = 1; tok[j] != '\0'; j++) {
                 if (tok[j] == 'a') a = true;
                 else if (tok[j] == 'l') l = true;
-                else { /* ignore unknown flags per spec not required */ }
+                else { }
             }
         } else if (path_arg == NULL) {
             path_arg = tok;
         } else {
-            // more than one path-like token -> invalid syntax
             printf("reveal: Invalid Syntax!\n");
             return;
         }
     }
 
-    // Resolve the target directory similar to hop's semantics
     char target[1024];
     if (path_arg == NULL) {
-        // default: current working directory
         getcwd(target, sizeof(target));
         tocall(target);
         return;
@@ -127,6 +119,5 @@ void reveal(Command* cmd) {
         tocall(prevcwd);
         return;
     }
-    // Otherwise, treat as a directory name or path
     tocall(path_arg);
 }

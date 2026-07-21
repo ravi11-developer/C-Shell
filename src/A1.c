@@ -5,7 +5,6 @@ void computername(char* res,char* shellcwd){
     gethostname(systemname,sizeof(systemname));
 
 
-    //generated code starts images no 1//
     int pid=getuid();
     struct passwd *pw=getpwuid(pid);
 
@@ -13,14 +12,8 @@ void computername(char* res,char* shellcwd){
     if(pw != NULL){
         username=pw->pw_name;
     }
-    //generated code ends//
-
-
-    // char res[1024];
     strcpy(res,username);
 
-    // char address[1024];
-    // getcwd(shellcwd,sizeof(shellcwd));
     int temp=strncmp(shellcwd,home,strlen(home));
 
 

@@ -1,20 +1,18 @@
 #include "../include/ast.h"
 
-//generated code starts//
 Command* create_command(int start, int end) {
     Command *cmd = malloc(sizeof(Command));
-    cmd->name = strdup(tokens[start]);   // first token = command name
+    cmd->name = strdup(tokens[start]);
 
-    // Count args
     int argc = end - start + 1;
     cmd->args = malloc((argc + 1) * sizeof(char *));
     for (int i = 0; i < argc; i++) {
-        cmd->args[i] = strdup(tokens[start + i]);       //strdup makes a new image in memory not just point to its pointer
+        cmd->args[i] = strdup(tokens[start + i]);
     }
-    cmd->args[argc] = NULL;  // execvp requires NULL-terminated args
+    cmd->args[argc] = NULL;
 
     cmd->next = NULL;
-    cmd->is_background = 0;  // Initialize as foreground by default
+    cmd->is_background = 0;
     return cmd;
 }
 
@@ -59,7 +57,7 @@ Command* parse_tokens(){
         }else if(strcmp(tokens[i],"&")==0){
             if(i>start){
                 Command* node=create_command(start,i-1);
-                node->is_background = 1; // Mark as background
+                node->is_background = 1;
                 if(!head){
                     head=node;
                 }
@@ -84,5 +82,3 @@ Command* parse_tokens(){
     }
     return head;
 }
-
-//generated code ends//

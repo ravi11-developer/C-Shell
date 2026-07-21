@@ -1,5 +1,4 @@
 #include "../include/ast.h"
-// #include "C2.h"
 #include "B1.h"
 void hop(Command* cmd){
     if(cmd->args[1]==NULL){

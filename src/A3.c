@@ -1,9 +1,5 @@
 #include "../include/A3.h"
 
-
-// generated code starts//
-// char** tokens;
-// int token_cnt;
 int currenttoken=0;
 int accept(const char* t){
     if(currenttoken<token_cnt && strcmp(tokens[currenttoken],t)==0){
@@ -59,7 +55,7 @@ int atomic(){
     if(!name()){
         return 0;
     }
-    while(input() || output() || name());       // it will keep increasing the currenttoken till either its neither name nor input nor output so the token at currenttoken will be neither name nor input nor output
+    while(input() || output() || name());
     return 1;
 }
 
@@ -94,13 +90,9 @@ int shell_cmd(){
 
 int check(){
     currenttoken=0;
-    // tokens=tkn;
-    // token_cnt=cnt;
     if(!shell_cmd()){
         return 0;
     }
     
     return currenttoken==token_cnt;
 }
-
-//generated code ends
