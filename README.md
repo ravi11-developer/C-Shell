@@ -121,26 +121,7 @@ Key Logic: Formats `username@hostname:cwd` and shortens the home directory to `~
 - Stores command history in a flat file and supports replay with `log execute <n>`
 - Preserves the shell’s own terminal state when running pipelines and redirections
 
-## README Quality Review
 
-The existing README is a good start, but it is not fully accurate and leaves out several important implementation details.
-
-Strengths:
-
-- It names the major user-facing commands
-- It explains the broad intent of the project
-- It includes example usage and a build command
-
-Missing or weak areas:
-
-- It overstates the parser architecture by describing a true AST, while the implementation uses a linked command chain
-- It does not explain the actual build requirements beyond `make`
-- It does not mention that the project targets Linux-specific behavior such as `/proc` and terminal control
-- It does not document the history file `log.txt`
-- It does not state that there is no database or external service dependency
-- It lacks a license section
-- It lacks screenshots or UI guidance
-- It does not clearly describe the relationship between tokenization, validation, and execution
 
 ## Installation
 
@@ -200,6 +181,7 @@ No separate configuration file is required. The shell uses the current working d
 ```
 
 
+
 ## Future Improvements
 
 - Add wildcard expansion and quoted string handling
@@ -207,5 +189,4 @@ No separate configuration file is required. The shell uses the current working d
 - Support more POSIX shell syntax such as subshells and logical operators
 - Improve built-in behavior inside pipelines where appropriate
 - Add automated tests for parser, job control, and history behavior
-
 
